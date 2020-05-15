@@ -21,7 +21,8 @@
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0",
     "typescript": "~3.7.2",
-    "yup": "^0.28.5"
+    "yup": "^0.28.5",
+    "eslint": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "@types/yup": "^0.28.1"
+    "@types/yup": "^0.28.1",
+    "eslint": "^6.0.0"
   }
 }
