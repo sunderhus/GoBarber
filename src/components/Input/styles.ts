@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import Tootip from '../Tooltip';
 import Tooltip from '../Tooltip';
 
 interface ContainerProps {
@@ -23,6 +22,7 @@ export const Container = styled.div<ContainerProps>`
     props.hasError &&
     css`
       border-color: #c53030;
+      animation: oh-no 1 0.65s linear ;
     `}
 
   ${props =>
@@ -55,6 +55,26 @@ export const Container = styled.div<ContainerProps>`
   svg {
     margin-right: 16px;
   }
+
+
+  @keyframes oh-no{
+    from{
+      transform: translateX(10px);
+    }
+    25%{
+      transform: translateX(-10px);
+    }
+    50%{
+      transform: translateX(10px);
+    }
+    75%{
+      transform: translateX(-10px);
+    }
+    100%{
+      transform: translateX(0%);
+    }
+  }
+
 `;
 
 export const Error = styled(Tooltip)`
