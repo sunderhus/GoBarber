@@ -5,7 +5,9 @@ import { FormHandles } from '@unform/core';
 import { Container, Content, Background } from './styles';
 import * as Yup from 'yup';
 
-import { useAuth } from '../../hooks/AuthContext';
+import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
+
 import getValidationErros from '../../utils/ValidationErros';
 
 import Input from '../../components/Input';
@@ -21,29 +23,37 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { user, signIn } = useAuth();
+  const { addToast, removeToast } = useToast();
 
-  const handleSubmit = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object<SignInFormData>().shape({
-        email: Yup.string()
-          .required('E-mail obrigatório.')
-          .email('Informe um e-mail válido'),
-        password: Yup.string().min(6, 'Informe sua senha.'),
-      });
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-      signIn({
-        email: data.email,
-        password: data.password
-      });
-    } catch (err) {
-      const errors = getValidationErros(err);
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+        const schema = Yup.object<SignInFormData>().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório.')
+            .email('Informe um e-mail válido'),
+          password: Yup.string().min(6, 'Informe sua senha.'),
+        });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErros(err);
+          formRef.current?.setErrors(errors);
+        } else {
+          addToast();
+        }
+      }
+    },
+    [signIn, addToast],
+  );
 
   return (
     <Container>
