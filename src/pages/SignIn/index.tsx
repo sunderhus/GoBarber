@@ -23,7 +23,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { user, signIn } = useAuth();
-  const { addToast, removeToast } = useToast();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -46,10 +46,14 @@ const SignIn: React.FC = () => {
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);
+
           formRef.current?.setErrors(errors);
-        } else {
-          addToast();
         }
+        addToast({
+          type: 'error',
+          title: 'Erro na autenticação...',
+          description: 'Verifique o e-mail e senha usados.',
+        });
       }
     },
     [signIn, addToast],
