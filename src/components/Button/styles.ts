@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import { shade } from 'polished';
+import styled from 'styled-components';
+
 export const Container = styled.button`
   background: #ff9000;
   color: #312e38;

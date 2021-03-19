@@ -17,12 +17,11 @@ export const Container = styled.div<ContainerProps>`
   color: #666360;
   border: 2px solid #232129;
 
-
   ${props =>
     props.hasError &&
     css`
       border-color: #c53030;
-      animation: oh-no 1 0.65s linear ;
+      animation: oh-no 1 0.65s linear;
     `}
 
   ${props =>
@@ -56,25 +55,23 @@ export const Container = styled.div<ContainerProps>`
     margin-right: 16px;
   }
 
-
-  @keyframes oh-no{
-    from{
+  @keyframes oh-no {
+    from {
       transform: translateX(10px);
     }
-    25%{
+    25% {
       transform: translateX(-10px);
     }
-    50%{
+    50% {
       transform: translateX(10px);
     }
-    75%{
+    75% {
       transform: translateX(-10px);
     }
-    100%{
+    100% {
       transform: translateX(0%);
     }
   }
-
 `;
 
 export const Error = styled(Tooltip)`

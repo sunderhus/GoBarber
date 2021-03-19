@@ -1,21 +1,16 @@
-import React, { useCallback, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { FiMail, FiLock, FiArrowLeft, FiUser } from 'react-icons/fi';
-import { Form } from '@unform/web';
-import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
-
-import api from '../../services/api';
-import { useToast } from '../../hooks/toast';
-
-import getValidationErros from '../../utils/ValidationErros';
-
-import { Container, Content, Background } from './styles';
+import { Form } from '@unform/web';
+import React, { useCallback, useRef } from 'react';
+import { FiArrowLeft, FiLock, FiMail, FiUser } from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
 import logoImg from '../../assets/logo.svg';
-
-import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useAuth } from '../../hooks/auth';
+import Input from '../../components/Input';
+import { useToast } from '../../hooks/toast';
+import api from '../../services/api';
+import getValidationErros from '../../utils/ValidationErros';
+import { Background, Container, Content } from './styles';
 
 interface SignUpFormData {
   name: string;
@@ -26,7 +21,6 @@ interface SignUpFormData {
 const SignUp: React.FC = () => {
   const { addToast } = useToast();
   const history = useHistory();
-  const auth = useAuth();
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(

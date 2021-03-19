@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-import { Container } from './styles';
-
 import {
   FiAlertCircle,
-  FiXCircle,
   FiCheckCircle,
   FiInfo,
+  FiXCircle,
 } from 'react-icons/fi';
 import { ToastMessage, useToast } from '../../../hooks/toast';
+import { Container } from './styles';
 
 interface ToastProps {
   message: ToastMessage;
-  style: object;
+  style: Record<string, unknown>;
 }
 
 const icons = {

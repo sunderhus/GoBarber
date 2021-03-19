@@ -17,11 +17,9 @@ interface AuthContextData {
   signOut(): void;
 }
 
-
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@GoBarbe:token');
     const user = localStorage.getItem('@GoBarbe:user');
@@ -30,10 +28,9 @@ const AuthProvider: React.FC = ({ children }) => {
       return {
         token,
         user: JSON.parse(user),
-      }
-    } else {
-      return {} as AuthState;
+      };
     }
+    return {} as AuthState;
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
@@ -48,7 +45,6 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@GoBarbe:user', JSON.stringify(user));
 
     setData({ token, user });
-
   }, []);
 
   const signOut = useCallback(() => {
@@ -56,23 +52,25 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.removeItem('@GoBarbe:user');
 
     setData({} as AuthState);
-  }, [])
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error('This component is not an AuthProvider children, so, it can not use useAuth hook.');
+    throw new Error(
+      'This component is not an AuthProvider children, so, it can not use useAuth hook.',
+    );
   } else {
     return context;
   }
 }
 
-export { AuthProvider, useAuth }
+export { AuthProvider, useAuth };

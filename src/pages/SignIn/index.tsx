@@ -1,22 +1,17 @@
-import React, { useRef, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
-import * as Yup from 'yup';
-
-import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-
+import { Form } from '@unform/web';
+import React, { useCallback, useRef } from 'react';
+import { FiLock, FiLogIn, FiMail } from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
+import * as Yup from 'yup';
+import logoImg from '../../assets/logo.svg';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import getValidationErros from '../../utils/ValidationErros';
+import { Background, Container, Content } from './styles';
 
-import SignUp from '../SignUp';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import logoImg from '../../assets/logo.svg';
-
-import { Container, Content, Background } from './styles';
 interface SignInFormData {
   email: string;
   password: string;
@@ -62,7 +57,7 @@ const SignIn: React.FC = () => {
         });
       }
     },
-    [signIn, addToast],
+    [signIn, addToast, history],
   );
 
   return (

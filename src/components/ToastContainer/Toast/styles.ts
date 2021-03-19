@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { animated } from 'react-spring';
+
 export interface ContainerProps {
   type?: 'success' | 'error' | 'info';
   hasDescription: boolean;
