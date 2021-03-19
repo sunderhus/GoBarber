@@ -1,9 +1,8 @@
 import React from 'react';
 import {
+  Redirect,
   Route as ReactDOMRoute,
   RouteProps as ReactDOMRouteProps,
-  Redirect,
-  useHistory,
 } from 'react-router-dom';
 import { useAuth } from '../hooks/auth';
 
@@ -18,8 +17,6 @@ const Route: React.FC<RouteProps> = ({
   ...rest
 }) => {
   const { user } = useAuth();
-
-  const history = useHistory();
 
   return (
     <ReactDOMRoute

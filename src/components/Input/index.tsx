@@ -1,4 +1,3 @@
-import { useField } from '@unform/core';
 import React, {
   InputHTMLAttributes,
   useCallback,
@@ -6,16 +5,17 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useField } from '@unform/core';
 import { FiAlertCircle } from 'react-icons/fi';
-import { IconType } from 'react-icons/lib/cjs';
+import { IconBaseProps } from 'react-icons/lib/cjs';
 import { Container, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  icon?: IconType;
+  icon?: React.ComponentType<IconBaseProps>;
 }
 
-const Input: React.FC<InputProps> = ({ name, icon: Icon, ...htmlProps }) => {
+const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState(false);
@@ -31,8 +31,6 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...htmlProps }) => {
     setIsFocused(false);
 
     setIsFilled(!!inputRef.current?.value);
-
-    const input = inputRef.current;
   }, []);
 
   useEffect(() => {
@@ -48,9 +46,10 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...htmlProps }) => {
       {Icon && <Icon size={20} />}
       <input
         ref={inputRef}
-        {...htmlProps}
+        defaultValue={defaultValue}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
+        {...props}
       />
       {error && (
         <Error title={error}>

@@ -3,8 +3,8 @@ import { Container } from './styles';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC<ButtonProps> = ({ children, ...htmlProps }) => (
-  <Container type="button" {...htmlProps}>
+const Button: React.FC<ButtonProps> = ({ children, ...props }) => (
+  <Container type="button" {...props}>
     {children}
   </Container>
 );

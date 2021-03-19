@@ -34,9 +34,11 @@ const SignIn: React.FC = () => {
             .email('Informe um e-mail válido'),
           password: Yup.string().min(6, 'Informe sua senha.'),
         });
+
         await schema.validate(data, {
           abortEarly: false,
         });
+
         await signIn({
           email: data.email,
           password: data.password,
