@@ -74,7 +74,7 @@ export const Container = styled.div<ContainerProps>`
   }
 `;
 
-export const Error = styled(Tooltip)`
+export const ErrorTooltip = styled(Tooltip)`
   height: 20px;
   margin-left: 16px;
 
