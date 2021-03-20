@@ -6,6 +6,7 @@ export enum ToastVariations {
   INFO = 'info',
   SUCCESS = 'success',
   ERROR = 'error',
+  ALERT = 'alert',
 }
 export interface ToastMessage {
   id: string;

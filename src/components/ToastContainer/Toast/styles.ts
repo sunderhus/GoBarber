@@ -20,6 +20,10 @@ const ToastTypeVariations = {
     background: #fddede;
     color: #c53030;
   `,
+  [ToastVariations.ALERT]: css`
+    background: #ffffd9;
+    color: #ff9000;
+  `,
 };
 
 export const Container = styled(animated.div)<ContainerProps>`

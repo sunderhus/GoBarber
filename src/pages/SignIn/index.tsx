@@ -52,7 +52,7 @@ const SignIn: React.FC = () => {
           return;
         }
         addToast({
-          type: ToastVariations.ERROR,
+          type: ToastVariations.ALERT,
           title: 'Erro na autenticação...',
           description:
             'Verifique o e-mail e senha usados no login e tente novamente.',
