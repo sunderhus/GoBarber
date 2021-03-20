@@ -2,9 +2,14 @@ import React, { createContext, useContext, useCallback, useState } from 'react';
 import { uuid } from 'uuidv4';
 import ToastContainer from '../components/ToastContainer';
 
+export enum ToastVariations {
+  INFO = 'info',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}
 export interface ToastMessage {
   id: string;
-  type: 'success' | 'error' | 'info';
+  type: ToastVariations;
   title: string;
   description?: string;
 }

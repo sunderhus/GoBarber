@@ -1,9 +1,13 @@
 import React, { createContext, useCallback, useState, useContext } from 'react';
 import api from '../services/api';
 
+interface User {
+  name: string;
+  email: string;
+}
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
 }
 
 interface SignInCredentials {
@@ -21,8 +25,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@GoBarbe:token');
-    const user = localStorage.getItem('@GoBarbe:user');
+    const token = localStorage.getItem('GoBarber:token');
+    const user = localStorage.getItem('GoBarber:user');
 
     if (token && user) {
       return {
@@ -41,15 +45,15 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { token, user } = response.data;
 
-    localStorage.setItem('@GoBarbe:token', token);
-    localStorage.setItem('@GoBarbe:user', JSON.stringify(user));
+    localStorage.setItem('@GoBarber:token', token);
+    localStorage.setItem('@GoBarber:user', JSON.stringify(user));
 
     setData({ token, user });
   }, []);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@GoBarbe:token');
-    localStorage.removeItem('@GoBarbe:user');
+    localStorage.removeItem('@GoBarber:token');
+    localStorage.removeItem('@GoBarber:user');
 
     setData({} as AuthState);
   }, []);
@@ -65,9 +69,7 @@ function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error(
-      'This component is not an AuthProvider children, so, it can not use useAuth hook.',
-    );
+    throw new Error('useAuth mustbe within an AuthProvider');
   } else {
     return context;
   }

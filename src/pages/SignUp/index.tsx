@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import logoImg from '../../assets/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { useToast } from '../../hooks/toast';
+import { ToastVariations, useToast } from '../../hooks/toast';
 import api from '../../services/api';
 import getValidationErros from '../../utils/ValidationErros';
 import { Background, Container, Content } from './styles';
@@ -43,7 +43,7 @@ const SignUp: React.FC = () => {
         await api.post('/users', data);
 
         addToast({
-          type: 'success',
+          type: ToastVariations.SUCCESS,
           title: 'Cadastro criado com sucesso.',
           description: 'Faça o seu login no GoBarber.✂',
         });
@@ -58,7 +58,7 @@ const SignUp: React.FC = () => {
         }
 
         addToast({
-          type: 'error',
+          type: ToastVariations.ERROR,
           title: 'Erro na criação de cadastro.',
           description: 'Verifique os dados usados e tente novamente.',
         });

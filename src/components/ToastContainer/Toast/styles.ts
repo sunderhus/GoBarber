@@ -1,21 +1,22 @@
 import styled, { css } from 'styled-components';
 import { animated } from 'react-spring';
+import { ToastVariations } from '../../../hooks/toast';
 
 export interface ContainerProps {
-  type?: 'success' | 'error' | 'info';
-  hasDescription?: boolean;
+  type: typeof ToastVariations[keyof typeof ToastVariations];
+  hasDescription: boolean;
 }
 
 const ToastTypeVariations = {
-  info: css`
+  [ToastVariations.INFO]: css`
     background: #ebf8ff;
     color: #3172b7;
   `,
-  success: css`
+  [ToastVariations.SUCCESS]: css`
     background: #e6fffa;
     color: #2e656a;
   `,
-  error: css`
+  [ToastVariations.ERROR]: css`
     background: #fddede;
     color: #c53030;
   `,
@@ -35,7 +36,7 @@ export const Container = styled(animated.div)<ContainerProps>`
     margin-top: 8px;
   }
 
-  ${props => ToastTypeVariations[props.type || 'info']}
+  ${props => ToastTypeVariations[props.type]}
 
   > svg {
     margin: 4px 12px 0 0;

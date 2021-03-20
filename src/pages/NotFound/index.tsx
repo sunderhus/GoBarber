@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container } from './styles';
-import { useToast } from '../../hooks/toast';
+import { ToastVariations, useToast } from '../../hooks/toast';
 
 const NotFound: React.FC = () => {
   const history = useHistory();
@@ -10,7 +10,7 @@ const NotFound: React.FC = () => {
   useEffect(() => {
     addToast({
       title: 'Página não encontrada.',
-      type: 'info',
+      type: ToastVariations.INFO,
       description: 'Aguarde 3s para ser redirecionado.',
     });
 
