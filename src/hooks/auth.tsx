@@ -52,7 +52,7 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.removeItem('@GoBarber:user');
 
     setData({} as AuthState);
-  }, [setData]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
