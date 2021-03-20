@@ -18,6 +18,9 @@ const Route: React.FC<RouteProps> = ({
 }) => {
   const { user } = useAuth();
 
+  console.log(user);
+  console.log(isPrivate);
+
   return (
     <ReactDOMRoute
       {...rest}
@@ -27,7 +30,7 @@ const Route: React.FC<RouteProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: isPrivate ? '/' : 'dashboard',
+              pathname: isPrivate ? '/' : '/dashboard', // @TODO:podemos passar um outro caminho custom para ser a página de início, algo que seja associado a cada usuário.
               state: {
                 from: location,
               },

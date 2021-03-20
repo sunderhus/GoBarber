@@ -15,7 +15,7 @@ const NotFound: React.FC = () => {
     });
 
     const timer = setTimeout(() => {
-      history.push('/');
+      history.goBack();
     }, 3000);
 
     return () => {

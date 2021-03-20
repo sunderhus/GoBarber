@@ -8,19 +8,19 @@ export interface ContainerProps {
 }
 
 const ToastTypeVariations = {
-  [ToastVariations.INFO]: css`
+  info: css`
     background: #ebf8ff;
     color: #3172b7;
   `,
-  [ToastVariations.SUCCESS]: css`
+  success: css`
     background: #e6fffa;
     color: #2e656a;
   `,
-  [ToastVariations.ERROR]: css`
+  error: css`
     background: #fddede;
     color: #c53030;
   `,
-  [ToastVariations.ALERT]: css`
+  alert: css`
     background: #ffffd9;
     color: #ff9000;
   `,
@@ -40,7 +40,7 @@ export const Container = styled(animated.div)<ContainerProps>`
     margin-top: 8px;
   }
 
-  ${props => ToastTypeVariations[props.type]}
+  ${props => ToastTypeVariations[props.type || ToastVariations.INFO]}
 
   > svg {
     margin: 4px 12px 0 0;
