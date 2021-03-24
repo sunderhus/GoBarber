@@ -4,7 +4,7 @@ import { ToastVariations } from '../../../hooks/toast';
 
 export interface ContainerProps {
   type: typeof ToastVariations[keyof typeof ToastVariations];
-  hasDescription: boolean;
+  hasdescription: number;
 }
 
 const ToastTypeVariations = {
@@ -66,7 +66,7 @@ export const Container = styled(animated.div)<ContainerProps>`
     color: inherit;
   }
   ${props =>
-    !props.hasDescription &&
+    !props.hasdescription &&
     css`
       align-items: center;
 

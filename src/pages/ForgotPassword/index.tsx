@@ -1,47 +1,55 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import React, { useCallback, useRef } from 'react';
-import { FiLock, FiLogIn, FiMail } from 'react-icons/fi';
+import React, { useCallback, useRef, useState } from 'react';
+import { FiArrowLeft, FiMail } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import logoImg from '../../assets/logo.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { useAuth } from '../../hooks/auth';
 import { ToastVariations, useToast } from '../../hooks/toast';
+import api from '../../services/api';
 import getValidationErros from '../../utils/ValidationErros';
 import { Background, Container, Content } from './styles';
 
-interface SignInFormData {
+interface ForgotPasswordFormData {
   email: string;
-  password: string;
 }
 
-const SignIn: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
-  const { signIn } = useAuth();
+const ForgotPassword: React.FC = () => {
   const { addToast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
-    async (data: SignInFormData) => {
+    async (data: ForgotPasswordFormData) => {
       try {
         formRef.current?.setErrors({});
 
-        const schema = Yup.object<SignInFormData>().shape({
+        const schema = Yup.object().shape({
           email: Yup.string()
             .required('E-mail obrigatório.')
             .email('Informe um e-mail válido'),
-          password: Yup.string().min(6, 'Informe sua senha.'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await signIn({
+        setLoading(true);
+        // recuperação de senha
+        await api.post('/password/forgot', {
           email: data.email,
-          password: data.password,
         });
+
+        addToast({
+          type: ToastVariations.SUCCESS,
+          title: 'E-mail de recuperação enviado',
+          description:
+            'Um E-mail de recuperação foi enviado a recuperação de senha. Verifique sua caixa de entrada.✂',
+        });
+
+        // history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErros(err);
@@ -49,40 +57,37 @@ const SignIn: React.FC = () => {
           formRef.current?.setErrors(errors);
           return;
         }
+
         addToast({
-          type: ToastVariations.ALERT,
-          title: 'Erro na autenticação...',
+          type: ToastVariations.ERROR,
+          title: 'Detectamos um problema',
           description:
-            'Verifique o e-mail e senha usados no login e tente novamente.',
+            'Ocorreu um erro ao tentar realizar a recuperação de senha. Verifique o e-mail informado e tente novamente.',
         });
+      } finally {
+        setLoading(false);
       }
     },
-    [signIn, addToast],
+    [addToast],
   );
 
   return (
     <Container>
       <Content>
         <img src={logoImg} alt="Logo - GoBarber" />
+
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu Logon</h1>
+          <h1>Recuperar senha</h1>
 
           <Input icon={FiMail} name="email" placeholder="E-mail" />
-          <Input
-            icon={FiLock}
-            name="password"
-            type="password"
-            placeholder="Senha"
-          />
 
-          <Button type="submit">Entrar</Button>
-
-          <Link to="/forgot-password">Esqueci minha senha</Link>
+          <Button loading={loading} type="submit">
+            Recuperar
+          </Button>
         </Form>
-
-        <Link to="/signup">
-          <FiLogIn size="16" />
-          Criar conta
+        <Link to="/">
+          <FiArrowLeft size="16" />
+          Voltar para login
         </Link>
       </Content>
       <Background />
@@ -90,4 +95,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;
