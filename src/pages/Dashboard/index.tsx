@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import DayPicker, { DayModifiers } from 'react-day-picker';
-
+import { isToday, format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import 'react-day-picker/lib/style.css';
 import { FiClock, FiPower } from 'react-icons/fi';
 import { useAuth } from '../../hooks/auth';
@@ -58,6 +59,12 @@ const Dashboard: React.FC = () => {
     return unavailableDates;
   }, [currentMonth, monthAvailability]);
 
+  const selectedDateAsText = useMemo(() => {
+    return format(selectedDate, "'Dia' dd 'de' MMMM", {
+      locale: ptBR,
+    });
+  }, [selectedDate]);
+
   useEffect(() => {
     api
       .get(`providers/${user.id}/month-availability`, {
@@ -94,8 +101,8 @@ const Dashboard: React.FC = () => {
         <Schedule>
           <h1>Horários Agendados</h1>
           <p>
-            <span>Hoje</span>
-            <span>dia 06</span>
+            {isToday(selectedDate) && <span>Hoje</span>}
+            <span>{selectedDateAsText}</span>
             <span>segunda-feira</span>
           </p>
 
