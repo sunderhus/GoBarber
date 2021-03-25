@@ -1,8 +1,8 @@
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import React, { useCallback, useRef } from 'react';
-import { FiLock, FiLogIn } from 'react-icons/fi';
-import { Link, useHistory, useLocation, useParams } from 'react-router-dom';
+import { FiLock } from 'react-icons/fi';
+import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import logoImg from '../../assets/logo.svg';
 import Button from '../../components/Button';
