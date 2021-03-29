@@ -24,6 +24,10 @@ export const Container = styled.div`
     svg {
       color: #999591;
       font-size: 24px;
+      transition: color 0.2s linear;
+      :hover {
+        color: #ff9000;
+      }
     }
   }
 `;

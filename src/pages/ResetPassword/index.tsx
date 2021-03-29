@@ -91,6 +91,7 @@ const ResetPassword: React.FC = () => {
 
           <Input
             icon={FiLock}
+            tabIndex={0}
             name="password"
             type="password"
             placeholder="Nova senha"

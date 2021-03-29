@@ -28,6 +28,10 @@ export const HeaderContent = styled.div`
       color: #999591;
       width: 20px;
       height: 20px;
+      transition: color 0.2s linear;
+      :hover {
+        color: #ff9000;
+      }
     }
   }
 `;
