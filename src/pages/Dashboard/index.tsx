@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { FiClock, FiPower } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -140,7 +141,7 @@ const Dashboard: React.FC = () => {
             <img src={user.avatarUrl} alt="Matheus Sunderhus" />
             <div>
               <span>Bem-vindo</span>
-              <b>{user.name}</b>
+              <Link to="profile">{user.name}</Link>
             </div>
           </Profile>
 
