@@ -1,6 +1,4 @@
-import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import { waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import { act } from 'react-dom/test-utils';
 import { AuthProvider, useAuth } from '../../hooks/auth';
