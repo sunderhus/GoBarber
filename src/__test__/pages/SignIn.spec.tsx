@@ -37,7 +37,7 @@ jest.mock('../../hooks/toast', () => {
   };
 });
 
-describe('SignIn Page ', () => {
+describe('Signin page ', () => {
   beforeEach(() => {
     mockedHistoryPush.mockClear();
     mockedSignIn.mockClear();
