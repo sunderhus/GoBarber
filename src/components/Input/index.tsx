@@ -48,7 +48,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...props }) => {
       isFilled={isFilled}
       isFocused={isFocused}
     >
-      {Icon && <Icon size={20} />}
+      {Icon && <Icon data-testid="input-icon" size={20} />}
       <input
         ref={inputRef}
         defaultValue={defaultValue}

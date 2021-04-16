@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
+import { FaUser } from 'react-icons/fa';
 import Input from '../../components/Input';
 
 const placeHolder = 'E-mail';
@@ -51,5 +52,35 @@ describe('Input component', () => {
         borderColor: '#ff9000',
       });
     });
+  });
+
+  it('should be able to show border highlight when input is filled', async () => {
+    const { getByPlaceholderText, getByTestId } = render(
+      <Input name="email" placeholder={placeHolder} />,
+    );
+
+    const inputElement = getByPlaceholderText(placeHolder);
+    const containerElement = getByTestId('input-container');
+
+    fireEvent.change(inputElement, {
+      target: { value: 'johnDoe@example.com' },
+    });
+
+    fireEvent.blur(inputElement);
+
+    await waitFor(() => {
+      expect(containerElement).toHaveStyle({
+        color: '#ff9000',
+      });
+    });
+  });
+
+  it('should be able to render a Icon when provided', () => {
+    const { getByTestId } = render(
+      <Input name="email" placeholder={placeHolder} icon={FaUser} />,
+    );
+    const iconElement = getByTestId('input-icon');
+
+    expect(iconElement).toBeTruthy();
   });
 });
